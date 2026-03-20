@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviation Law Mastery Test</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #141b34;
+      --card-2: #1b2445;
+      --text: #eef2ff;
+      --muted: #b7c0e0;
+      --accent: #89b4ff;
+      --correct: #1f9d55;
+      --wrong: #d64545;
+      --border: #31406f;
+      --shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #09101d 0%, #0f1730 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #18244b, #0d1530);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+    .sub {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 15px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #09101d;
+      font-weight: 700;
+    }
+    button.secondary {
+      background: #27345f;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .score {
+      margin-left: auto;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--text);
+      min-width: 220px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .meta-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      color: var(--muted);
+    }
+    .question {
+      margin: 18px 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .q-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      cursor: pointer;
+      transition: .15s ease;
+      font-size: 15px;
+    }
+    .option:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+    .option.disabled {
+      cursor: default;
+      opacity: 0.95;
+    }
+    .option.correct {
+      border-color: rgba(31,157,85,.9);
+      background: rgba(31,157,85,.18);
+    }
+    .option.wrong {
+      border-color: rgba(214,69,69,.9);
+      background: rgba(214,69,69,.18);
+    }
+    .feedback {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 14px;
+      display: none;
+      border: 1px solid var(--border);
+    }
+    .feedback.correct {
+      display: block;
+      background: rgba(31,157,85,.12);
+      border-color: rgba(31,157,85,.6);
+    }
+    .feedback.wrong {
+      display: block;
+      background: rgba(214,69,69,.12);
+      border-color: rgba(214,69,69,.6);
+    }
+    .feedback .label {
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .small-note {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 18px 8px 36px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>✈️ Aviation Law Mastery Test</h1>
+      <div class="sub">ตอบแล้วจะแสดงถูก/ผิด พร้อมคำอธิบายด้านล่างทันที • ปุ่ม Reset จะล้างคำตอบและสุ่มสลับตัวเลือกใหม่ทุกข้อ</div>
+
+      <div class="exam-meta">
+        <div class="meta-box"><strong>Total Questions:</strong> 40</div>
+        <div class="meta-box"><strong>Passing Mark:</strong> 70 / 100</div>
+        <div class="meta-box"><strong>Mode:</strong> Instant Feedback</div>
+        <div class="meta-box"><strong>Shuffle on Reset:</strong> Yes</div>
+      </div>
+
+      <div class="toolbar">
+        <button id="checkAllBtn" class="secondary" type="button">Show Score</button>
+        <button id="resetBtn" type="button">Reset + Shuffle Choices</button>
+        <div class="score" id="scoreBox">Score: 0 / 40 • 0%</div>
+      </div>
+      <div class="small-note">หมายเหตุ: ชุดนี้ทำตามข้อความจากกระดาษข้อสอบที่ส่งมา และใช้เฉลยตามบริบทข้อสอบชุดนี้</div>
+    </section>
+
+    <main id="quiz"></main>
+
+    <div class="footer">Made for study practice • HTML single file</div>
+  </div>
+
+  <script>
+    const QUESTIONS = [{"q": "Which of the following(s) is/are responsible for governing the civil aviation activities in any State?", "options": ["The Air Navigation Provider", "The Air Traffic Controller", "The Civil Aviation Authority", "All above are correct"], "correct": "The Civil Aviation Authority", "explanation": "The Civil Aviation Authority is the national regulatory body responsible for oversight and regulation of civil aviation activities in a State."}, {"q": "“The right of an aircraft to enter and pass through a State’s territory so long as it is not prejudicial to the peace, good order or security of that State.” Which theory refers to the above statement?", "options": ["Complete Sovereignty Theory", "Free Air Theory", "Navigable Air Space Theory", "Innocent Passage Theory"], "correct": "Innocent Passage Theory", "explanation": "This describes innocent passage: transit is allowed so long as it does not threaten the peace, good order, or security of the State."}, {"q": "“Every State has complete and exclusive sovereignty over airspace above its territory.” Which theory refers to the above statement?", "options": ["Complete Sovereignty Theory", "Free Air Theory", "Innocent Passage Theory", "Navigable Air Space Theory"], "correct": "Complete Sovereignty Theory", "explanation": "This is the classic sovereignty principle, reflected in Article 1 of the Chicago Convention."}, {"q": "Which Convention initiated the setup of the International Commission for Air Navigation?", "options": ["The Convention on International Civil Aviation", "The Convention for the Unification of Certain Rules relating to International Carriage by Air", "The Convention of offences and certain other acts committed on board aircraft", "The Convention Relating to the Regulation of Aerial Navigation"], "correct": "The Convention Relating to the Regulation of Aerial Navigation", "explanation": "The 1919 Paris Convention (Convention Relating to the Regulation of Aerial Navigation) established the International Commission for Air Navigation (ICAN)."}, {"q": "According to the correct Convention from Question No. 4, every aircraft engaged in international navigation shall be provided with …", "options": ["A Certificate of Competency", "A Certificate of Manufacturer", "A Certificate of Registration", "All above are correct"], "correct": "A Certificate of Registration", "explanation": "Aircraft engaged in international navigation must carry a certificate of registration. The other listed certificates are not the correct general requirement here."}, {"q": "According to the correct Convention from Question No. 4, how long shall the aircraft’s log book be kept after the last entry?", "options": ["12 months", "24 months", "36 months", "It depends on the air operator’s policy"], "correct": "24 months", "explanation": "Under the context being tested from the earlier convention reference, the aircraft log book is to be kept for 24 months after the last entry."}, {"q": "Which of the following aviation law describes the air operator’s liability to compensate in case of damage caused by transportation of passengers or goods?", "options": ["The Convention Relating to the Regulation of Aerial Navigation", "The Convention Relating to the Regulation of International Air Transport", "The Convention for the Unification Regulation relating to International Air Transport", "The Convention for the Unification of Certain Rules relating to International Carriage by Air"], "correct": "The Convention for the Unification of Certain Rules relating to International Carriage by Air", "explanation": "This refers to the Warsaw/Montreal liability framework dealing with international carriage by air and carrier liability."}, {"q": "According to the correct Convention from Question No. 7, which of the following(s) is/are considered as the liability of the Air Operator?", "options": ["The death or injury of a passenger caused by the negligence of that person", "The damage, destruction, or loss of baggage or cargo during the carriage by air", "The delayed departure of a flight affected by a known heavy Typhoon over the aerodrome", "All above are correct"], "correct": "The damage, destruction, or loss of baggage or cargo during the carriage by air", "explanation": "Carrier liability clearly includes damage, destruction, or loss of baggage/cargo during carriage by air. The other choices are not the best statement as written."}, {"q": "What was/were the main reason(s) behind the United States of America made an invitation to 54 nations for a meeting on 1st November 1944?", "options": ["The international air laws were harmonized", "The certainty and prosperity of the international commercial aviation industry at that time", "The conflicts of international air navigation still exist", "All above are correct"], "correct": "The conflicts of international air navigation still exist", "explanation": "The Chicago Conference was convened because unresolved issues and conflicts in international air navigation still existed and required an international framework."}, {"q": "According to the Convention on International Civil Aviation, which type of aircraft shall be applied to?", "options": ["Any aircraft used in military, customs, and police services", "Civil aircraft only", "Military aircraft only", "All types of aircraft as mentioned above"], "correct": "Civil aircraft only", "explanation": "The Chicago Convention applies to civil aircraft. State aircraft used in military, customs, and police services are excluded."}, {"q": "“Every State has complete and exclusive sovereignty over airspace above its territory.” Which of the following refers to the above statement?", "options": ["Airspace", "Freedoms of the Air", "Sovereignty", "Territory"], "correct": "Sovereignty", "explanation": "The statement describes sovereignty over airspace."}, {"q": "Which of the following describes the most correct of a State Aircraft?", "options": ["Any aircraft which is used for the government’s mission only", "Any aircraft which is used for the Head of State’s mission only", "Any aircraft which is used as a National Air Carrier", "Any aircraft which is used in military, customs, and police services"], "correct": "Any aircraft which is used in military, customs, and police services", "explanation": "Under the Chicago Convention, aircraft used in military, customs, and police services are State aircraft."}, {"q": "Which of the following describes the most correct of the Nationality of Aircraft?", "options": ["An aircraft has the nationality of the State in which it is manufactured", "An aircraft has the nationality of the State in which it is operated", "An aircraft has the nationality of the State in which it is positioned", "An aircraft has the nationality of the State in which it is registered"], "correct": "An aircraft has the nationality of the State in which it is registered", "explanation": "Aircraft nationality is determined by the State of registration."}, {"q": "Which statement is the most correct describing the Certificate of Airworthiness?", "options": ["A certificate issued for an aircraft by the aircraft manufacturer and being used to dictate whether an aircraft is worthy of safe flight", "A certificate issued for an aircraft by the aircraft owner and being used to dictate whether an aircraft is worthy of safe flight", "A certificate issued for an aircraft by the aircraft operator and being used to dictate whether an aircraft is worthy of safe flight", "A certificate issued for an aircraft by the national civil aviation authority in the State where the aircraft is registered and being used to dictate whether an aircraft is worthy of safe flight"], "correct": "A certificate issued for an aircraft by the national civil aviation authority in the State where the aircraft is registered and being used to dictate whether an aircraft is worthy of safe flight", "explanation": "A Certificate of Airworthiness is issued by the competent national aviation authority of the State of Registry."}, {"q": "What are the specifications of Aircraft Nationality and Registration Marks?", "options": ["The Nationality shall be preceded by the Registration Mark", "The Nationality mark shall be notified to the ICAO", "Located on the right half of the lower surface of the wing structure", "All above are correct"], "correct": "The Nationality mark shall be notified to the ICAO", "explanation": "The nationality mark is notified to ICAO. Option (a) is reversed, so “all above” cannot be correct."}, {"q": "Bangkok Airways is granted approval from Hong Kong's authorities to take on traffic from Chiang Mai International Airport and to put down in Hong Kong International Airport. This statement refers to:", "options": ["Third Freedom of the Air", "Fourth Freedom of the Air", "Fifth Freedom of the Air", "Sixth Freedom of the Air"], "correct": "Third Freedom of the Air", "explanation": "Third Freedom is the right to carry traffic from the home State of the airline to another State."}, {"q": "Singapore Airlines is granted approval from The Civil Aviation Authority of Thailand to take on traffic from Bangkok and to put down in Singapore Changi International Airport. This statement refers to:", "options": ["Third Freedom of the Air", "Fourth Freedom of the Air", "Sixth Freedom of the Air", "Seventh Freedom of the Air"], "correct": "Fourth Freedom of the Air", "explanation": "For Singapore Airlines, this describes carriage from another State back to its own State, which is Fourth Freedom."}, {"q": "Cabotage is defined as:", "options": ["Any unlawful activity which concerns to the safety of an aircraft", "The right given to any aircraft to operate flight between two countries", "The right given to any aircraft of one country to carry passengers and cargo between two airports within the owner country of the right", "The operation of an aircraft with acrobatic manner"], "correct": "The right given to any aircraft of one country to carry passengers and cargo between two airports within the owner country of the right", "explanation": "Cabotage refers to domestic carriage within a State by a foreign carrier."}, {"q": "Bangkok Airways is granted approval from Malaysia's authorities and Singapore's authorities to operate flights and carry traffic between both countries. This statement refers to:", "options": ["Fifth Freedom of the Air", "Sixth Freedom of the Air", "Seventh Freedom of the Air", "Eighth Freedom of the Air"], "correct": "Seventh Freedom of the Air", "explanation": "Seventh Freedom is the right to carry traffic between two foreign States without the service touching the airline’s home State."}, {"q": "Air Asia is granted approval from The Civil Aviation Authority of Thailand to operate flights and carry traffic between Phuket International Airport and Chiang Mai International Airport. This statement refers to:", "options": ["Sixth Freedom of the Air", "Seventh Freedom of the Air", "Eighth Freedom of the Air", "Ninth Freedom of the Air"], "correct": "Ninth Freedom of the Air", "explanation": "Ninth Freedom is stand-alone cabotage: the right to operate domestic services within another State."}, {"q": "Which Convention authorizes the Contracting States to extradite the offenders if commit unlawful activity?", "options": ["The Convention for the Suppression of Unlawful Interference on Aircraft", "The Convention for the Suppression of Unlawful Acts Against the Safety of Civil Aviation", "The Convention for the Suppression of Unlawful Seizure of Aircraft", "The Convention on Offences and Certain Other Acts Committed on Board Aircraft"], "correct": "The Convention for the Suppression of Unlawful Seizure of Aircraft", "explanation": "This refers to the Hague Convention on unlawful seizure of aircraft, which includes the prosecute-or-extradite framework."}, {"q": "If a man interferes with aircraft communications or transmits false information to the aircraft, which Convention relates to the above situation?", "options": ["The Convention for the Suppression of Unlawful Interference on Aircraft", "The Convention for the Suppression of Unlawful Acts Against the Safety of Civil Aviation", "The Convention for the Suppression of Unlawful Seizure of Aircraft", "The Convention on Offences and Certain Other Acts Committed on Board Aircraft"], "correct": "The Convention for the Suppression of Unlawful Acts Against the Safety of Civil Aviation", "explanation": "Interfering with communications or giving false information that endangers safety falls under the Montreal Convention 1971."}, {"q": "Which Convention includes destroying or damaging any navigation facility as an offence?", "options": ["The Convention for the Suppression of Unlawful Acts Against the Safety of Civil Aviation", "The Convention for the Suppression of Unlawful Seizure of Aircraft", "The Convention on Offences and Certain Other Acts Committed on Board Aircraft", "The Convention for the extradition of the offenders"], "correct": "The Convention for the Suppression of Unlawful Acts Against the Safety of Civil Aviation", "explanation": "Destroying or damaging air navigation facilities is expressly covered by the Montreal Convention 1971."}, {"q": "According to The Convention for the Unification of Certain Rules relating to International Carriage by Air of 1999, what is the maximum validity period to bring to court for compensation if damages occurred during flight?", "options": ["Within 24 months", "Within 26 months", "Within 36 months", "No time limit"], "correct": "Within 24 months", "explanation": "Under the Montreal Convention 1999, the right to damages is extinguished if an action is not brought within two years."}, {"q": "How long the delayed baggage will be considered as lost baggage?", "options": ["After seven days", "After fourteen days", "After twenty days", "After twenty-one days"], "correct": "After twenty-one days", "explanation": "A bag that has been delayed for 21 days is generally treated as lost in this exam context."}, {"q": "According to the ICAO’s regional offices, where is the ICAO’s regional office for Middle East currently located in?", "options": ["Amman, Jordan", "Cairo, Egypt", "Dakar, Senegal", "Muscat, Oman"], "correct": "Cairo, Egypt", "explanation": "The ICAO Middle East Regional Office is located in Cairo, Egypt."}, {"q": "According to the ICAO’s regional offices, where is the ICAO regional sub-office for Asia/Pacific currently located in?", "options": ["Bangkok, Thailand", "Beijing, China", "Kuala Lumpur, Malaysia", "Jakarta, Indonesia"], "correct": "Beijing, China", "explanation": "The ICAO Asia/Pacific Regional Sub-Office is in Beijing, China."}, {"q": "According to the ICAO’s regional offices, where is the ICAO’s regional office for Western Africa currently located in?", "options": ["Dakar, Senegal", "Khartoum, Republic of the Sudan", "Lagos, Federal Republic of Nigeria", "Nairobi, Kenya"], "correct": "Dakar, Senegal", "explanation": "The ICAO Western and Central African (WACAF) Office is in Dakar, Senegal."}, {"q": "Who is the current Secretary General of ICAO?", "options": ["Mr. Juan Carlos Salazar", "Dr. Fang Liu", "Dr. Olumuyiwa Benard Aliu", "Mr. Salvatore Sciacchitano"], "correct": "Mr. Juan Carlos Salazar", "explanation": "The intended answer in this exam set is Juan Carlos Salazar. (This may change over time outside the exam context.)"}, {"q": "What condition(s) will the Contracting States be selected to the Council of ICAO?", "options": ["Being States of which play major roles in air transportation", "Being States of which represent for a group of rich countries only", "Being a State of which the President of the Council is elected", "All above are correct"], "correct": "Being States of which play major roles in air transportation", "explanation": "Council membership reflects importance in air transport, contribution to air navigation facilities, and geographic representation—not wealth alone."}, {"q": "How many Contracting States are required for ICAO’s extraordinary Assembly Meeting?", "options": ["At least 36 Contracting States", "At least 38 Contracting States", "At least 39 Contracting States", "At least 45 Contracting States"], "correct": "At least 39 Contracting States", "explanation": "The exam’s expected answer is 39 Contracting States."}, {"q": "What are contained in the ICAO Annexes?", "options": ["Standards and Responsibility Procedures", "Standards and Recommended Procedures", "Standards and Responsibility Practices", "Standards and Recommended Practices"], "correct": "Standards and Recommended Practices", "explanation": "ICAO Annexes contain SARPs: Standards and Recommended Practices."}, {"q": "Which ICAO document provides guidelines for Air Traffic Services?", "options": ["ICAO Annex 7", "ICAO Annex 9", "ICAO Annex 10", "ICAO Annex 11"], "correct": "ICAO Annex 11", "explanation": "Annex 11 covers Air Traffic Services."}, {"q": "Which ICAO document provides guidelines for Aeronautical Information Services?", "options": ["ICAO Annex 10", "ICAO Annex 11", "ICAO Annex 14", "ICAO Annex 15"], "correct": "ICAO Annex 15", "explanation": "Annex 15 covers Aeronautical Information Services."}, {"q": "How many members of the ICAO Air Navigation Commission consist?", "options": ["Fifteen Members", "Seventeen Members", "Nineteen Members", "Twenty-four Members"], "correct": "Nineteen Members", "explanation": "The exam expects 19 members for the Air Navigation Commission."}, {"q": "How many votes are required from the Council Members for ICAO Annex’s amendment adoption?", "options": ["Minimum 24 votes", "Minimum 26 votes", "Minimum 30 votes", "Minimum 36 votes"], "correct": "Minimum 24 votes", "explanation": "The exam expects the amendment adoption threshold here as a minimum of 24 votes."}, {"q": "Which month of the year is practically scheduled for the Annex’s amendment adoption by the ICAO’s Council Members?", "options": ["January", "March", "July", "November"], "correct": "March", "explanation": "The exam’s expected practical schedule answer is March."}, {"q": "The date by which Contracting States must advise the ICAO’s Council that they do not approve the Annex’s amendment. It is called………", "options": ["Adoption Date", "Applicability Date", "Effective Date", "Official Date"], "correct": "Effective Date", "explanation": "In this exam set, the objection deadline is referred to as the Effective Date."}, {"q": "The date by which the Annex’s amendment becomes effective. It is called………", "options": ["Adoption Date", "Applicability Date", "Effective Date", "Official Date"], "correct": "Applicability Date", "explanation": "In this exam set, the amendment becoming operative is labeled Applicability Date."}, {"q": "Which statement is the most correct regarding to the Civil Aviation Authority?", "options": ["A national agency who supervises the approval and regulations of all civil transportation systems in each country", "A national agency who supervises the approval and regulations of civil aviation activities in each country", "A national agency who supervises the approval and regulations of all civil and military activities in each country", "A national agency who supervises the approval and regulations of all State aircraft in each country"], "correct": "A national agency who supervises the approval and regulations of civil aviation activities in each country", "explanation": "The Civil Aviation Authority is the national body responsible for regulation and approval of civil aviation activities."}];
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    let state = [];
+
+    function createState() {
+      state = QUESTIONS.map((q, idx) => ({
+        id: idx,
+        question: q.q,
+        options: shuffle(q.options),
+        correct: q.correct,
+        explanation: q.explanation,
+        selected: null,
+        isAnswered: false
+      }));
+    }
+
+    function renderQuiz() {
+      const quiz = document.getElementById('quiz');
+      quiz.innerHTML = '';
+      state.forEach((item, index) => {
+        const block = document.createElement('section');
+        block.className = 'question';
+
+        const title = document.createElement('div');
+        title.className = 'q-title';
+        title.textContent = `${index + 1}) ${item.question}`;
+        block.appendChild(title);
+
+        item.options.forEach((opt) => {
+          const btn = document.createElement('button');
+          btn.className = 'option' + (item.isAnswered ? ' disabled' : '');
+          btn.type = 'button';
+          btn.textContent = opt;
+          btn.dataset.qid = item.id;
+          btn.dataset.option = opt;
+          if (item.isAnswered) {
+            btn.disabled = true;
+            if (opt === item.correct) btn.classList.add('correct');
+            if (opt === item.selected && opt !== item.correct) btn.classList.add('wrong');
+          }
+          btn.addEventListener('click', () => answerQuestion(item.id, opt));
+          block.appendChild(btn);
+        });
+
+        const fb = document.createElement('div');
+        fb.className = 'feedback';
+        fb.id = `fb-${item.id}`;
+
+        if (item.isAnswered) {
+          const ok = item.selected === item.correct;
+          fb.classList.add(ok ? 'correct' : 'wrong');
+          fb.style.display = 'block';
+          fb.innerHTML = `
+            <div class="label">${ok ? '✅ Correct' : '❌ Incorrect'}</div>
+            <div><strong>Correct answer:</strong> ${item.correct}</div>
+            <div style="margin-top:6px;"><strong>Explanation:</strong> ${item.explanation}</div>
+          `;
+        }
+
+        block.appendChild(fb);
+        quiz.appendChild(block);
+      });
+      updateScore();
+    }
+
+    function answerQuestion(qid, option) {
+      const item = state.find(q => q.id === qid);
+      if (!item || item.isAnswered) return;
+      item.selected = option;
+      item.isAnswered = true;
+      renderQuiz();
+      document.getElementById(`fb-${qid}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function updateScore() {
+      const answered = state.filter(q => q.isAnswered).length;
+      const correct = state.filter(q => q.isAnswered && q.selected === q.correct).length;
+      const percent = answered ? Math.round((correct / state.length) * 100) : 0;
+      document.getElementById('scoreBox').textContent = `Score: ${correct} / ${state.length} • ${percent}%`;
+    }
+
+    function resetQuiz() {
+      createState();
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.getElementById('checkAllBtn').addEventListener('click', updateScore);
+    document.getElementById('resetBtn').addEventListener('click', resetQuiz);
+
+    createState();
+    renderQuiz();
+  </script>
+</body>
+</html>
